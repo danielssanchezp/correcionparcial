@@ -1,0 +1,72 @@
+<html>
+	<head>
+	<script>
+		//vector de nombre de las imagenes almacenadas en la carpeta img
+function cualImagen( fila, col ){
+	var imagenes = [ 
+		"1.png",
+		"2.png",
+		"3.png",
+		"4.png",
+		"5.png",
+		"6.png",
+		"7.png",
+		"8.png",
+		"9.png",
+		"10.png"
+	];
+	var pos = (fila+1)*5 + col;
+	return "img/" + imagenes[ pos % 10 ];
+}
+//trae la imagen de la carpeta con los nombres asignados por el vector
+function htmlCarta( fila, col ,cont){
+	return '<div id="'+cont+'"><img  src="' + cualImagen(fila,col) + '" /></div>';
+}
+//se crea el tablero con los divs ordenados
+function repartir(){
+	var cartas="";
+	var cont=1;
+	for( var fila = 0; fila <= 3; fila++){
+		for( col = 0; col <= 4; col++){
+			cartas += htmlCarta( fila, col ,cont );
+			cont++;
+		}
+	tab = document.getElementById("tablero");
+	tab.innerHTML += "'<div>'"+cartas+"'</div>'";
+	cartas="";
+	}
+}	
+function evento(ev){
+	document.getElementById(ev.target.id);
+	console.log(document.getElementById(ev.target.id));
+}
+	</script>
+	<style>
+/*esconde la carta*/	
+#tablero img
+{
+	visibility: hidden;
+}	
+/*creo el estilo de la carta, donde  le coloco borde y ordeno por fila*/
+#tablero div > div
+{
+	background-color: indigo;
+	padding: 4px;
+	border-width: 5px;
+	border-color: white;
+	border-style: solid;
+	margin: 8px;
+	display: table-cell;
+}
+/*ordeno por columnas los divs*/
+#tablero > div{
+	display: table-row;
+}
+	</style>
+	</head>
+	<body>
+	<button onclick="repartir()">Repartir</button>
+	<div id="tablero"></div>
+	<div id="puntaje"></div>
+	</body>
+</html>
